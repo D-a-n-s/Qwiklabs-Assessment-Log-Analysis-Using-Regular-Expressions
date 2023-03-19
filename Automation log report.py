@@ -5,7 +5,7 @@ import operator
 with open("syslog.log", "r") as file:
     errors = {}
     for line in file.readlines():
-        result = re.search(r'(ERROR|INFO) (\w.+) ', line)
+        result = re.search(r"(ERROR|INFO) (\w.+) ", line)
         check = result.group(1)
         error = result.group(2)
         if check == "ERROR":
@@ -25,7 +25,7 @@ for log in sorted_error:
 with open("syslog.log", "r") as file:
     per_user = {}
     for line in file.readlines():
-        result = re.search(r': (INFO|ERROR) .+\((\w+.*)\)', line)
+        result = re.search(r": (INFO|ERROR) .+\((\w+.*)\)", line)
         type_ = result.group(1)
         user = result.group(2)
         if user not in per_user:
