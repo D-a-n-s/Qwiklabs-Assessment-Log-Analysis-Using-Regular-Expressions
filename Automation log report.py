@@ -2,6 +2,7 @@
 import csv
 import re
 import operator
+
 with open("syslog.log", "r") as file:
     errors = {}
     for line in file.readlines():
@@ -13,7 +14,11 @@ with open("syslog.log", "r") as file:
                 errors[error] = [1]
             else:
                 errors[error][0] += 1
+        else:
+            pass
+
 sorted_error = sorted(errors.items(), key=operator.itemgetter(1), reverse=True)
+
 with open('error_message.csv', "w", newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["Error", "Count"])
@@ -22,6 +27,7 @@ for log in sorted_error:
     with open('error_message.csv', 'a', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow([key, value[0]])
+
 with open("syslog.log", "r") as file:
     per_user = {}
     for line in file.readlines():
@@ -39,7 +45,9 @@ with open("syslog.log", "r") as file:
                 per_user[user][0] += 1
             else:
                 per_user[user][1] += 1
+
 sorted_puser = sorted(per_user.items())
+
 with open('user_statistics.csv', "w", newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["Username", "INFO", "ERROR"])
